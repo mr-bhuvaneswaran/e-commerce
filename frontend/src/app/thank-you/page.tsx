@@ -8,8 +8,9 @@ import { getOrder } from "../../lib/apiService";
 import OrderSummary from "../../components/OrderSummary";
 import CustomerInfo from "../../components/CustomerInfo";
 import { Order } from "../../type";
+import { Suspense } from "react";
 
-export default function ThankYouPage() {
+function ThankYouPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const orderId = searchParams.get("orderId");
@@ -81,5 +82,13 @@ export default function ThankYouPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ThankYouPageWrapper() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <ThankYouPage />
+    </Suspense>
   );
 } 

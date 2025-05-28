@@ -10,8 +10,9 @@ import PaymentPopup from "../../components/PaymentPopup";
 import CheckoutForm from "../../components/CheckoutForm";
 import { Variant, Product, PendingOrderBody } from "../../type";
 import { validateCheckout } from "../../lib/validateCheckout";
+import { Suspense } from "react";
 
-export default function CheckoutPage() {
+function CheckoutPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productId = searchParams.get("productId");
@@ -117,5 +118,13 @@ export default function CheckoutPage() {
         {showPopup && <PaymentPopup onSelect={handlePaymentStatus} onCancel={() => setShowPopup(false)} />}
       </div>
     </div>
+  );
+}
+
+export default function CheckoutPageWrapper() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <CheckoutPage />
+    </Suspense>
   );
 } 
